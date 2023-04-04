@@ -5,3 +5,7 @@
 ## filter.py
 
 > This Python code sorts files in a directory by extension and removes duplicate files using MD5 hashing, and generates a file containing the hashes of the remaining files.
+
+## sql-writer.py
+
+> This Python script finds all code files with specific extensions in the input folder, and writes SQL queries for each code file into the output folder concurrently using multithreading.

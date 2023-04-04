@@ -49,3 +49,5 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
             future.result()
         except Exception as e:
             print(f"{Fore.RED}[-] Error: {Fore.RESET} {e}")
+            with open("skipped_files.txt", "a") as skipped_file:
+                skipped_file.write(f"{future.args[0]}\n")

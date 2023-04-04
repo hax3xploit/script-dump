@@ -35,7 +35,9 @@ def write_sql_query(file_path, sql_folder):
                 print(f"{Fore.GREEN}[+]{Fore.RESET} Wrote SQL query for {filename}")
     except Exception as e:
         print(f"{Fore.YELLOW}[*]{Fore.RESET} Error processing {file_path}: {e}")
-
+        with open("skipped_files.txt", "a") as skipped_file:
+            skipped_file.write(f"{file_path}\n")
+            
 
 code_files = get_code_files(folder_path)
 with concurrent.futures.ThreadPoolExecutor() as executor:

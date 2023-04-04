@@ -16,19 +16,18 @@ BOLD = '\033[1m'
 UNDERLINE = '\033[4m'
 
 
+
 def sort_files_by_extension(root_directory):
+    skipped_files = []  # to store names of files that are skipped
     for dirpath, dirnames, filenames in os.walk(root_directory):
         for filename in filenames:
 
             N = 7
-             
             res = ''.join(random.choices(string.ascii_uppercase +
                                          string.digits, k=N))
             extension = os.path.splitext(filename)[1]
 
             new_file_name = os.path.splitext(filename)[0]+'-'+str(res)+extension
-
-            #print(new_file_name)
 
             if extension:
                 destination_folder = os.path.join(root_directory, extension[1:])
@@ -36,9 +35,19 @@ def sort_files_by_extension(root_directory):
                     os.makedirs(destination_folder)
                 source_file = os.path.join(dirpath, filename)
                 destination_file = os.path.join(destination_folder, new_file_name)
-                #print(destination_file)
-                shutil.move(source_file, destination_file)
-                print(f"Moved file: {source_file} to {destination_file}")
+                try:
+                    shutil.move(source_file, destination_file)
+                    print(f"{OKGREEN}[+]{ENDC}Moved file: {source_file} to {destination_file}")
+                except Exception as e:
+                    skipped_files.append(filename)
+                    print(f"{FAIL}[-]{ENDC}Error occurred while moving file: {source_file}")
+                    print(e)
+
+    # create and write skipped files to a text file
+    if skipped_files:
+        with open(os.path.join(root_directory, "skipped_files.txt"), 'w') as f:
+            for file_name in skipped_files:
+                f.write(f"{file_name}\n")
 
 
 def remove_duplicates(dir_path):
@@ -71,6 +80,7 @@ def remove_duplicates(dir_path):
             f.write(f"{file_hash}  {file_path}\n")
 
     return output_file
+
 
 if __name__ == '__main__':
     directory = input("Enter directory path to sort files: ")

@@ -21,3 +21,6 @@
 
 ## query-executor.py
 > This Python script executes all SQL files in a specified directory and its subdirectories for a MSSQL database with error handling and database connection check, using the pyodbc library for database connectivity.
+
+## table_creator.py
+> This script creates tables in MSSQL from a list of table names using the pyodbc library in Python.

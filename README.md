@@ -18,3 +18,6 @@
 
 ## threader.py
 > This code removes duplicate files in a directory using MD5 hashing and writes the hashes and corresponding file paths to a text file.
+
+## query-executor.py
+> This Python script executes all SQL files in a specified directory and its subdirectories for a MSSQL database with error handling and database connection check, using the pyodbc library for database connectivity.

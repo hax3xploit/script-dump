@@ -12,3 +12,6 @@
 
 ## exe2reg.py
 > This Python script modifies the Windows Registry to white-list the execution of specified executable files, as defined in a user-provided text file.
+
+## HH3.4.py
+> This Python script modifies the Windows Registry to white-list the execution of specified executable files, as defined in a user-provided text file.

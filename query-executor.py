@@ -17,7 +17,7 @@ except pyodbc.Error as e:
     exit()
 
 # Function to execute SQL files
-def execute_sql_file(file_path):
+def execute_sql_file(file_path, skipped_files):
     try:
         with open(file_path, 'r') as sql_file:
             sql_script = sql_file.read()
@@ -27,15 +27,18 @@ def execute_sql_file(file_path):
             print(f"Executed SQL file {file_path}")
     except pyodbc.Error as e:
         print(f"Error executing SQL file {file_path}: {e}")
+        skipped_files.write(file_path + "\n") 
 
-# Function to recursively search for SQL files
 def execute_sql_files_in_folder(folder_path):
+    skipped_files = open("skipped_files.txt", "w")
     for item in os.listdir(folder_path):
         item_path = os.path.join(folder_path, item)
         if os.path.isfile(item_path) and item.endswith('.sql'):
-            execute_sql_file(item_path)
+            execute_sql_file(item_path, skipped_files)
         elif os.path.isdir(item_path):
             execute_sql_files_in_folder(item_path)
+    skipped_files.close()
+
 
 # Execute SQL files in the specified directory and its subdirectories
 execute_sql_files_in_folder('/path/to/sql/files/')

@@ -2,14 +2,25 @@ import os
 import pymssql
 import threading
 
+
+HEADER = '\033[95m'
+OKBLUE = '\033[94m'
+OKCYAN = '\033[96m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
+
 def execute_sql(sql, conn, sql_file_path):
     try:
         with conn.cursor() as cursor:
             cursor.execute(sql)
         conn.commit()
-        print(f"Executed {sql_file_path}")
+        print(f"{OKGREEN}[+] Executed {ENDC} {sql_file_path}")
     except pymssql.Error as e:
-        print(f"Error executing {sql_file_path}: {e}")
+        print(f"{FAIL}[-] {ENDC}Error executing {sql_file_path}: {e}")
 
 def execute_sql_files_in_directory(directory_path, conn):
     threads = []
@@ -35,10 +46,10 @@ if __name__ == "__main__":
     try:
         conn = pymssql.connect(server=server, user=username, password=password, database=database)
         conn.ping()
-        print("Database connection test succeeded.")
+        print(f"{OKGREEN}[+]{ENDC} Database connection test succeeded.")
     except pymssql.Error as e:
-        print(f"Database connection test failed: {e}")
+        print(f"{FAIL}[-] {ENDC} Database connection test failed: {e}")
         exit(1)
         
-    execute_sql_files_in_directory("path/to/directory", conn)
+    execute_sql_files_in_directory(f"path/to/directory", conn)
     conn.close()

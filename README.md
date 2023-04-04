@@ -9,3 +9,6 @@
 ## sql-writer.py
 
 > This Python script finds all code files with specific extensions in the input folder, and writes SQL queries for each code file into the output folder concurrently using multithreading.
+
+## exe2reg.py
+> This Python script modifies the Windows Registry to white-list the execution of specified executable files, as defined in a user-provided text file.

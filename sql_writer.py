@@ -1,17 +1,7 @@
 import os
 import concurrent.futures
+from colorama import Fore, Back, Style
 
-
-
-HEADER = '\033[95m'
-OKBLUE = '\033[94m'
-OKCYAN = '\033[96m'
-OKGREEN = '\033[92m'
-WARNING = '\033[93m'
-FAIL = '\033[91m'
-ENDC = '\033[0m'
-BOLD = '\033[1m'
-UNDERLINE = '\033[4m'
 
 
 folder_path = input("Please enter folder location: ")
@@ -40,9 +30,9 @@ def write_sql_query(file_path, sql_folder):
             sql_file_path = os.path.join(sql_folder, f"{filename}.sql")
             with open(sql_file_path, "w", encoding="utf8") as sql_file:
                 sql_file.write(sql_query)
-                print(f"{OKGREEN}[+]{ENDC} Wrote SQL query for {filename}")
+                print(f"{Fore.GREEN}[+]{Fore.RESET} Wrote SQL query for {filename}")
     except Exception as e:
-        print(f"{WARNING}[*]{ENDC} Error processing {file_path}: {e}")
+        print(f"{Fore.YELLOW}[*]{Fore.RESET} Error processing {file_path}: {e}")
 
 
 code_files = get_code_files(folder_path)
@@ -54,4 +44,4 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
         try:
             future.result()
         except Exception as e:
-            print(f"{FAIL}[-] Error: {ENDC} {e}")
+            print(f"{Fore.RED}[-] Error: {Fore.RESET} {e}")

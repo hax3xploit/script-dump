@@ -20,7 +20,7 @@ tables = ["aspx", "au", "bak", "baml", "c", "cache", "cd", "coffee", "cpp", "cs"
 
 for table_name in tables:
     cursor = cnxn.cursor()
-        cursor.execute(f"CREATE TABLE [dbo].[{table_name}] ([filename] [VARCHAR(200)], [source_code] [VARCHAR](MAX)) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]")
+    cursor.execute(f"CREATE TABLE [dbo].[{table_name}] ([filename] [VARCHAR(200)], [source_code] [VARCHAR](MAX)) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]")
     cursor.commit()
     print(f"Table {table_name} created successfully.")
 

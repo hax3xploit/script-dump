@@ -38,7 +38,7 @@ def write_sql_query(file_path, sql_folder):
             filename = os.path.basename(file_path)
             sql_query = f"INSERT INTO cs_fp (filename, source_code) VALUES ('{filename}', '{source_code}');"
             sql_file_path = os.path.join(sql_folder, f"{filename}.sql")
-            with open(sql_file_path, "w") as sql_file:
+            with open(sql_file_path, "w", encoding="utf8") as sql_file:
                 sql_file.write(sql_query)
                 print(f"{OKGREEN}[+]{ENDC} Wrote SQL query for {filename}")
     except Exception as e:

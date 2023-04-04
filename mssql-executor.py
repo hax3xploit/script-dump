@@ -45,11 +45,19 @@ if __name__ == "__main__":
     
     try:
         conn = pymssql.connect(server=server, user=username, password=password, database=database)
-        conn.ping()
-        print(f"{OKGREEN}[+]{ENDC} Database connection test succeeded.")
+   
+        with conn.cursor() as cursor:
+            cursor.execute("SELECT 1")
+            result = cursor.fetchone()
+            if result[0] == 1:
+                print(f"{OKGREEN}[+]{ENDC} Database connection test succeeded.")
+            else:
+                print(f"{FAIL}[-] {ENDC} Database connection test failed.")
+                exit(1)
     except pymssql.Error as e:
         print(f"{FAIL}[-] {ENDC} Database connection test failed: {e}")
         exit(1)
         
     execute_sql_files_in_directory(f"path/to/directory", conn)
     conn.close()
+

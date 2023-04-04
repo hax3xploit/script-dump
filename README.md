@@ -15,3 +15,6 @@
 
 ## HH3.4.py
 > This is a Python script that extracts information from MSG files in a specified directory, parses the information to fill in a CSV template, and saves the output to a specified location. The script logs information to a file, and includes regular expressions to extract information from the messages.
+
+## threader.py
+> This code removes duplicate files in a directory using MD5 hashing and writes the hashes and corresponding file paths to a text file.

@@ -14,4 +14,4 @@
 > This Python script modifies the Windows Registry to white-list the execution of specified executable files, as defined in a user-provided text file.
 
 ## HH3.4.py
-> This Python script modifies the Windows Registry to white-list the execution of specified executable files, as defined in a user-provided text file.
+> This is a Python script that extracts information from MSG files in a specified directory, parses the information to fill in a CSV template, and saves the output to a specified location. The script logs information to a file, and includes regular expressions to extract information from the messages.

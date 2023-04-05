@@ -45,7 +45,7 @@ def sort_files_by_extension(root_directory):
 
     # create and write skipped files to a text file
     if skipped_files:
-        with open(os.path.join(root_directory, "skipped_files.txt"), 'w') as f:
+        with open(os.path.join(root_directory, "skipped_files.txt"), 'a') as f:
             for file_name in skipped_files:
                 f.write(f"{file_name}\n")
 

@@ -36,7 +36,7 @@ def execute_sql_file(file_path, skipped_files):
         skipped_files.write(file_path + "\n")
 
 def execute_sql_files_in_folder(folder_path):
-    skipped_files = open("skipped_files.txt", "w")
+    skipped_files = open("large_files.txt", "w")
     for item in os.listdir(folder_path):
         item_path = os.path.join(folder_path, item)
         if os.path.isfile(item_path) and item.endswith('.sql'):

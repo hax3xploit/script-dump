@@ -32,5 +32,5 @@ for table_name in tables:
 cnxn.close()
 
 if skipped_tables:
-    with open('skipped_tables.txt', 'w') as file:
+    with open('skipped_tables.txt', 'a') as file:
         file.write('\n'.join(skipped_tables))

@@ -18,16 +18,22 @@ except pyodbc.Error as e:
 
 # Function to execute SQL files
 def execute_sql_file(file_path, skipped_files):
+    max_file_size = 200 * 1024 * 1024 # 200 MB in bytes
     try:
-        with open(file_path, 'r') as sql_file:
-            sql_script = sql_file.read()
-            cursor = conn.cursor()
-            cursor.execute(sql_script)
-            cursor.commit()
-            print(f"Executed SQL file {file_path}")
+        file_size = os.path.getsize(file_path)
+        if file_size > max_file_size:
+            print(f"Skipping file {file_path}: file size is {file_size} bytes, which is larger than the maximum allowed size of {max_file_size} bytes.")
+            skipped_files.write(file_path + "\n")
+        else:
+            with open(file_path, 'r') as sql_file:
+                sql_script = sql_file.read()
+                cursor = conn.cursor()
+                cursor.execute(sql_script)
+                cursor.commit()
+                print(f"Executed SQL file {file_path}")
     except pyodbc.Error as e:
         print(f"Error executing SQL file {file_path}: {e}")
-        skipped_files.write(file_path + "\n") 
+        skipped_files.write(file_path + "\n")
 
 def execute_sql_files_in_folder(folder_path):
     skipped_files = open("skipped_files.txt", "w")

@@ -28,7 +28,7 @@ def write_sql_query(file_path, sql_folder):
             source_code = source_code.replace("'", "").replace('"', '')
             filename = os.path.basename(file_path)
             file_extension = os.path.splitext(filename)[1][1:]
-            sql_query = f"INSERT INTO {file_extension} (filename, source_code) VALUES ('{filename}', '{source_code}');"
+            sql_query = f"INSERT INTO tbl_{file_extension} (filename, source_code) VALUES ('{filename}', '{source_code}');"
             sql_file_path = os.path.join(sql_folder, f"{filename}.sql")
             with open(sql_file_path, "w", encoding="utf8", errors='ignore') as sql_file:
                 sql_file.write(sql_query)

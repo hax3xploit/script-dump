@@ -21,7 +21,7 @@ skipped_tables = []
 for table_name in tables:
     try:
         cursor = cnxn.cursor()
-        cursor.execute(f"CREATE TABLE {table_name} (filename VARCHAR(200), source_code VARCHAR(MAX))")
+        cursor.execute(f"CREATE TABLE {table_name}_tbl (filename VARCHAR(200), source_code VARCHAR(MAX))")
         cursor.commit()
         print(f"Table {table_name} created successfully.")
     except pyodbc.Error as ex:

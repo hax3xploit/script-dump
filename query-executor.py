@@ -18,7 +18,7 @@ except pyodbc.Error as e:
 
 # Function to execute SQL files
 def execute_sql_file(file_path, skipped_files):
-    max_file_size = 200 * 1024 * 1024 # 200 MB in bytes
+    max_file_size = 15 * 1024 * 1024 
     try:
         file_size = os.path.getsize(file_path)
         if file_size > max_file_size:

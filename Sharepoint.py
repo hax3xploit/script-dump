@@ -1,3 +1,8 @@
+# Author: Abdullah Khawaja
+# Date: 25-5-2023
+# Version: 2.0
+# Tested on: Windows 11
+
 from shareplum import Site
 from requests_ntlm import HttpNtlmAuth
 import pandas as pd
@@ -15,10 +20,10 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-sharepoint_url = "https://your-sharepoint"
-list_name = "AntiMalware"
-username = ""
-password = ""
+sharepoint_url = "https://infosec-sharepoint"
+list_name = "your-list-name"
+username = "your-username"
+password = "you-pwd"
 
 auth = HttpNtlmAuth(username, password)
 site = Site(sharepoint_url, auth=auth, verify_ssl=False)
@@ -26,6 +31,7 @@ sp_list = site.List(list_name)
 print(sp_list)
 
 data = sp_list.GetListItems('All Items')
+
 excel_file_path = "AntiMalwarefile.xlsx"
 sheet_name = "2022-2023"
 data_frame = pd.read_excel(excel_file_path, sheet_name=sheet_name)
@@ -33,7 +39,21 @@ data_frame = pd.read_excel(excel_file_path, sheet_name=sheet_name)
 existing_data = set()
 
 for item in data:
-    existing_data.add((item["ID"], item["Status"], item["Description of Event"], item["Username"], item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"], item["Reported By(Name of the Person)"], item["Department(of the Person Reporting)"], item["Affected Service(s)"], item["Affected Department(s)"], item["Assigned To"], item["Assignee's Department"], item["Event Response Date & Time"], item["Source of Evidence"], item["Event Closure or Upgradation Date"], item["Initial Assessment"] ))  # Add more fields as per your SharePoint list schema
+    username = item.get
+        ("Status", "Description of Event", "Event Type", "Affected CI(s)",
+        "Event Reporting Date & Time", "Reported By(Name of the Person)",
+        "Department(of the Person Reporting)", "Affected Service(s)",
+        "Affected Department(s)", "Assigned To", "Assignee's Department",
+        "Event Response Date & Time", "Source of Evidence", "Event Closure or Upgradation Date", "Initial Assessment" )  # Check for the presence of key values
+    existing_data.add((
+        item["ID"], item["Status"], item["Description of Event"], username,
+        item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"],
+        item["Reported By(Name of the Person)"], item["Department(of the Person Reporting)"],
+        item["Affected Service(s)"], item["Affected Department(s)"], item["Assigned To"],
+        item["Assignee's Department"], item["Event Response Date & Time"], item["Source of Evidence"],
+        item["Event Closure or Upgradation Date"], item["Initial Assessment"]
+    ))  # Add more fields as per your SharePoint list schema
+
 
 for _, row in data_frame.iterrows():
     item_id = row.get("ID")

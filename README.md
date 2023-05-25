@@ -1,3 +1,5 @@
+## Sharepoint.py
+> This script interacts with SharePoint to insert new items from an Excel file into a specific list. It uses the shareplum library for SharePoint integration and the pandas library for reading Excel data. The script establishes a connection to SharePoint using NTLM authentication and retrieves the target list. It then reads data from the Excel file and compares it with existing data in SharePoint to avoid duplicates. If a new item is found, it is added to the SharePoint list, and the script logs the inserted item's details. Duplicate items are skipped.
 ## mssql-executor.py
 > This code reads in SQL queries from a directory of .sql files and executes them on a Microsoft SQL Server database using the pymssql library. The updated version of the code uses threading to execute each query in a separate thread, allowing for faster execution. The code also includes error handling for database connection issues and SQL execution errors.
 

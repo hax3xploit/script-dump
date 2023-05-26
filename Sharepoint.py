@@ -1,6 +1,6 @@
 # Author: Abdullah Khawaja
 # Date: 25-5-2023
-# Version: 2.0
+# Version: 3.0
 # Tested on: Windows 11
 
 from shareplum import Site
@@ -38,21 +38,31 @@ data_frame = pd.read_excel(excel_file_path, sheet_name=sheet_name)
 existing_data = set()
 
 for item in data:
-    username = item.get
-        ("Status", "Description of Event", "Event Type", "Affected CI(s)",
-        "Event Reporting Date & Time", "Reported By(Name of the Person)",
-        "Department(of the Person Reporting)", "Affected Service(s)",
-        "Affected Department(s)", "Assigned To", "Assignee's Department",
-        "Event Response Date & Time", "Source of Evidence", "Event Closure or Upgradation Date", "Initial Assessment" )  # Check for the presence of "Username and other" key
-    existing_data.add((
-        item["ID"], item["Status"], item["Description of Event"], username,
-        item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"],
-        item["Reported By(Name of the Person)"], item["Department(of the Person Reporting)"],
-        item["Affected Service(s)"], item["Affected Department(s)"], item["Assigned To"],
-        item["Assignee's Department"], item["Event Response Date & Time"], item["Source of Evidence"],
-        item["Event Closure or Upgradation Date"], item["Initial Assessment"]
-    ))  # Add more fields as per your SharePoint list schema
+    username = item.get("Username", "")
+    status = item.get("Status", "")
+    description = item.get("Description of Event", "")
+    event_type = item.get("Event Type", "")
+    affected_cis = item.get("Affected CI(s)", "")
+    event_date = item.get("Event Reporting Date & Time", "")
+    reported_by = item.get("Reported By(Name of the Person)", "")
+    department = item.get("Department(of the Person Reporting)", "")
+    affected_services = item.get("Affected Service(s)", "")
+    affected_departments = item.get("Affected Department(s)", "")
+    assigned_to = item.get("Assigned To", "")
+    assignee_department = item.get("Assignee's Department", "")
+    response_date = item.get("Event Response Date & Time", "")
+    source_of_evidence = item.get("Source of Evidence", "")
+    closure_date = item.get("Event Closure or Upgradation Date", "")
+    initial_assessment = item.get("Initial Assessment", "")
 
+    existing_data.add((
+        item["ID"], status, description, username,
+        event_type, affected_cis, event_date,
+        reported_by, department, affected_services,
+        affected_departments, assigned_to, assignee_department,
+        response_date, source_of_evidence, closure_date,
+        initial_assessment
+    ))  # Add more fields as per your SharePoint list schema
 
 for _, row in data_frame.iterrows():
     item_id = row.get("ID")

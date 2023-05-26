@@ -20,15 +20,14 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 
-sharepoint_url = "https://infosec-sharepoint"
-list_name = "your-list-name"
-username = "your-username"
-password = "you-pwd"
+sharepoint_url = "https://your-share-point"
+list_name = "your-List-Name"
+username = "your-AD-user"
+password = "your-AD-pass"
 
 auth = HttpNtlmAuth(username, password)
 site = Site(sharepoint_url, auth=auth, verify_ssl=False)
 sp_list = site.List(list_name)
-print(sp_list)
 
 data = sp_list.GetListItems('All Items')
 
@@ -44,7 +43,7 @@ for item in data:
         "Event Reporting Date & Time", "Reported By(Name of the Person)",
         "Department(of the Person Reporting)", "Affected Service(s)",
         "Affected Department(s)", "Assigned To", "Assignee's Department",
-        "Event Response Date & Time", "Source of Evidence", "Event Closure or Upgradation Date", "Initial Assessment" )  # Check for the presence of key values
+        "Event Response Date & Time", "Source of Evidence", "Event Closure or Upgradation Date", "Initial Assessment" )  # Check for the presence of "Username and other" key
     existing_data.add((
         item["ID"], item["Status"], item["Description of Event"], username,
         item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"],
@@ -80,6 +79,8 @@ for _, row in data_frame.iterrows():
         if (item["ID"], item["Status"], item["Description of Event"], item["Username"], item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"], item["Reported By(Name of the Person)"], item["Department(of the Person Reporting)"], item["Affected Service(s)"], item["Affected Department(s)"], item["Assigned To"], item["Assignee's Department"], item["Event Response Date & Time"], item["Source of Evidence"], item["Event Closure or Upgradation Date"], item["Initial Assessment"]) not in existing_data:
             sp_list.UpdateListItems(data=[item_data], kind='New')
             print("Item inserted successfully.")
-            logging.info(item["ID"]+item["Status"]+item["Description of Event"]+item["Username"]+item["Event Type"]+item["Affected CI(s)"]+item["Event Reporting Date & Time"]+item["Reported By(Name of the Person)"]+item["Department(of the Person Reporting)"]+item["Affected Service(s)"]+item["Affected Department(s)"]+item["Assigned To"]+item["Assignee's Department"]+item["Event Response Date & Time"])
         else:
             print("Skipping duplicate item.")
+            logging.info('\r\n'+'------Skiped items----------'+'\n\r'+item+'\r\n'+'----------------')
+            print("Skipped item:", item)
+

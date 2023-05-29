@@ -86,11 +86,11 @@ for _, row in data_frame.iterrows():
             "Initial Assessment": row["Initial Assessment"]
         }
         # Check if the item data already exists in SharePoint
-        if (item["ID"], item["Status"], item["Description of Event"], item["Username"], item["Event Type"], item["Affected CI(s)"], item["Event Reporting Date & Time"], item["Reported By(Name of the Person)"], item["Department(of the Person Reporting)"], item["Affected Service(s)"], item["Affected Department(s)"], item["Assigned To"], item["Assignee's Department"], item["Event Response Date & Time"], item["Source of Evidence"], item["Event Closure or Upgradation Date"], item["Initial Assessment"]) not in existing_data:
+        if (item_data["Status"], item_data["Description of Event"], item_data["Username"], item_data["Event Type"], item_data["Affected CI(s)"], item_data["Event Reporting Date & Time"], item_data["Reported By(Name of the Person)"], item_data["Department(of the Person Reporting)"], item_data["Affected Service(s)"], item_data["Affected Department(s)"], item_data["Assigned To"], item_data["Assignee's Department"], item_data["Event Response Date & Time"], item_data["Source of Evidence"], item_data["Event Closure or Upgradation Date"], item_data["Initial Assessment"]) not in existing_data:
             sp_list.UpdateListItems(data=[item_data], kind='New')
             print("Item inserted successfully.")
         else:
             print("Skipping duplicate item.")
-            logging.info('\r\n'+'------Skiped items----------'+'\n\r'+item+'\r\n'+'----------------')
-            print("Skipped item:", item)
+            logging.info('\r\n'+'------Skiped items----------'+'\n\r'+'Status: ' + str(item_data['Status']) +'\n\r'+'Description of Event: ' + str(item_data['Description of Event']) + '\n\r'+'Username: ' + str(item_data['Username'])+'\r\n'+'Event Type: ' + str(item_data['Event Type'])+'\r\n' + 'Affected CI(s): ' + str(item_data['Affected CI(s)']) +'\n\r'+ 'Event Reporting Date & Time: ' + str(item_data['Event Reporting Date & Time']) +'\n\r'+ '----------------')
+            print("Skipped item:", item_data)
 

@@ -56,7 +56,7 @@ for item in data:
     initial_assessment = item.get("Initial Assessment", "")
 
     existing_data.add((
-        item["ID"], status, description, username,
+        status, description, username,
         event_type, affected_cis, event_date,
         reported_by, department, affected_services,
         affected_departments, assigned_to, assignee_department,

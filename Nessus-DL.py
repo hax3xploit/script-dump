@@ -10,7 +10,7 @@ import urllib3
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-nessus_url = "https://sys125"
+nessus_url = "https://your-nessus-server"
 access_key = "your-access-key"
 secret_key = "your-secret-key"
 

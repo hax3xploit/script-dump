@@ -7,6 +7,7 @@ import os
 import requests
 import time
 import urllib3
+import csv
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 

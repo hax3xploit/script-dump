@@ -1,5 +1,5 @@
 ## code_similarity_cleaner.py
-This script compares code files within a directory and identifies similar files based on a similarity threshold. It creates a separate directory called 'Similar_Data_Set' and copies larger files with a similarity of 70% to 100% into respective subdirectories based on file extensions. Finally, it removes both the larger file and files with moderate similarity (30% to 70%) from the main directory.
+> This script compares code files within a directory and identifies similar files based on a similarity threshold. It creates a separate directory called 'Similar_Data_Set' and copies larger files with a similarity of 70% to 100% into respective subdirectories based on file extensions. Finally, it removes both the larger file and files with moderate similarity (30% to 70%) from the main directory.
 
 ## Nessus-DL.py
 > This code authenticates with a Nessus server using API keys. It retrieves a list of available scans and filters them based on predefined scan names. For each filtered scan, it generates a CSV report and waits for the report to be ready. Once ready, it downloads the report and saves it in separate folders based on the scan type (Windows, Linux, VIS, or Cisco). The code utilizes the requests library for making API requests and handles error scenarios.

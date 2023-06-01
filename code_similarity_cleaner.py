@@ -32,11 +32,14 @@ def compare_similarity(file1, file2):
 
 
 def delete_file(file_path):
-    try:
-        os.remove(file_path)
-        print(f"{RED}[-]{RESET} Deleting file: {BWhite}{os.path.basename(file_path)}{RESET}")
-    except Exception as e:
-        print(f"{RED}[-]{RESET} Error: An unexpected error occurred while deleting the file: {str(e)}")
+    if os.path.exists(file_path):
+        try:
+            os.remove(file_path)
+            print(f"{RED}[-]{RESET} Deleting file: {BWhite}{os.path.basename(file_path)}{RESET}")
+        except Exception as e:
+            print(f"{RED}[-]{RESET} Error: An unexpected error occurred while deleting the file: {str(e)}")
+    else:
+        print(f"{RED}[-]{RESET} Error: The file {BWhite}{os.path.basename(file_path)}{RESET} does not exist.")
 
 
 def create_similar_data_set(directory, similarity_threshold):
@@ -44,6 +47,9 @@ def create_similar_data_set(directory, similarity_threshold):
     total_files = len(code_files)
     output_directory = os.path.join(directory, 'Similar_Data_Set')
     os.makedirs(output_directory, exist_ok=True)
+
+    files_to_delete = set()
+    files_to_remove = set()
 
     for i in range(total_files):
         file1 = code_files[i]
@@ -71,8 +77,9 @@ def create_similar_data_set(directory, similarity_threshold):
                         copy2(larger_file, subdirectory)
                         print(f"{GREEN}[+]{RESET} Similarity between {BWhite}{os.path.basename(file1)}{RESET} and {BWhite}{os.path.basename(file2)}{RESET}:{GREEN} {similarity * 100:.2f}%{RESET}")
                         print(f"{BPurple}[+]{RESET} Copied larger file: {BWhite}{os.path.basename(larger_file)}{RESET}")
-                        delete_file(larger_file)
-                        delete_file(smaller_file)
+                        files_to_delete.add(smaller_file)
+                        files_to_delete.add(file1)
+                        files_to_delete.add(file2)
                     except SameFileError:
                         print(f"{RED}[-]{RESET} Error: The files {BWhite}'{file1}'{RESET} and {BWhite}'{file2}'{RESET} are the same file. Skipped copying.")
                     except Exception as e:
@@ -81,8 +88,8 @@ def create_similar_data_set(directory, similarity_threshold):
                     file1_name = os.path.basename(file1)
                     file2_name = os.path.basename(file2)
                     print(f"{BYellow}[*]{RESET} Moderate similarity between {BWhite} {file1_name} {RESET} and {BWhite} {file2_name} {RESET}:{BYellow} {similarity * 100:.2f}%{RESET}")
-                    delete_file(file1)
-                    delete_file(file2)
+                    files_to_remove.add(file1)
+                    files_to_remove.add(file2)
                 else:
                     file1_name = os.path.basename(file1)
                     file2_name = os.path.basename(file2)
@@ -90,8 +97,17 @@ def create_similar_data_set(directory, similarity_threshold):
 
     print(f"{BBlue}[+]{RESET} Comparison completed. {BRIGHT}Similar files are stored in the{RESET} {BCyan}'Similar_Data_Set'{RESET} {BWhite}directory.{RESET}")
 
+    # Delete files
+    for file_to_delete in files_to_delete:
+        delete_file(file_to_delete)
+    
+    # Remove moderate similarity files
+    for file_to_remove in files_to_remove:
+        delete_file(file_to_remove)
 
-directory = '/path/to/code/'
+
+
+directory = 'D:/path/to/code/files'
 similarity_threshold = 0.7
 
 create_similar_data_set(directory, similarity_threshold)
